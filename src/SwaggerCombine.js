@@ -91,7 +91,8 @@ class SwaggerCombine {
             _.pick(schema.paths, explicitIncludes),
             _.pickBy(schema.paths, (prop, path) => this.matchInArray(path, explicitIncludes))
           );
-        } else if (this.apis[idx].paths.exclude && this.apis[idx].paths.exclude.length > 0) {
+        }
+        if (this.apis[idx].paths.exclude && this.apis[idx].paths.exclude.length > 0) {
           const explicitExcludes = this.expandRegexPathMethod(schema, this.apis[idx].paths.exclude);
 
           schema.paths = _.omit(schema.paths, explicitExcludes);
@@ -132,7 +133,8 @@ class SwaggerCombine {
               }
             }
           });
-        } else if (excludeParameters && !_.isEmpty(excludeParameters)) {
+        }
+        if (excludeParameters && !_.isEmpty(excludeParameters)) {
           _.forIn(excludeParameters, (parameterToExclude, parameterPath) => {
             const hasHttpMethod = /\.(get|put|post|delete|options|head|patch)$/i.test(parameterPath);
             const pathInSchema = _.get(schema.paths, parameterPath);
